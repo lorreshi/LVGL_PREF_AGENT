@@ -30,7 +30,7 @@
     - 在 `core/config/models.py` 实现 `LLMConfig`、`DeviceConfig`、`RetrieverConfig`、`AppConfig`（含 `frame_budget_us`、`hotspot_top_n`、`report_token_budget`、`mode`、`max_iterations`、`intervention_points`、`max_safe_baud`）
     - _Requirements: 11.1, 12.1_
 
-  - [ ] 2.2 实现 Config_Loader
+  - [x] 2.2 实现 Config_Loader
     - 在 `core/config/loader.py` 实现 YAML 加载 → Pydantic 校验；缺字段/非法值在任何 agent 运行前报出具体字段与原因
     - 创建 `config/config.example.yaml` 示例
     - _Requirements: 12.1, 12.2, 11.1_

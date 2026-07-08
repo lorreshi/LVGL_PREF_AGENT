@@ -1,0 +1,40 @@
+# 嵌入式设备智能体平台 —— 示例配置
+#
+# 复制为 config/config.yaml 后按需修改。密钥请勿写入本文件：
+# 只填「存放密钥的环境变量名」（api_key_env），实际密钥经环境变量 / .env 注入。
+# Config_Loader 会在任何 agent 运行前做 Pydantic 校验，缺字段 / 非法值会
+# 报出具体字段与原因（需求 12.1 / 12.2）。
+
+# --- LLM 提供方（供 LLMProviderFactory 依 type 分发构造，需求 12.3）---
+llm:
+  type: anthropic            # anthropic / openai / openai_compatible
+  model: claude-3-5-sonnet-latest
+  api_key_env: ANTHROPIC_API_KEY   # 环境变量名，非密钥本身
+  base_url: null             # openai_compatible 等自定义端点填写，否则留空
+  temperature: 0.0
+
+# --- 设备 IO 后端（供 DeviceIOFactory 依 type 分发构造，需求 12.4）---
+device:
+  type: serial               # serial / half_auto / fake
+  port: /dev/ttyUSB0
+  baud: 921600
+  max_safe_baud: 921600      # open_serial 前校验 baud <= max_safe_baud（需求 2.3）
+  build_cmd: "scons -j8"     # 可脚本化的构建命令；半自动/人在环可留空
+  flash_cmd: "flash.sh"      # 可脚本化的烧录命令；半自动/人在环可留空
+
+# --- 检索器后端（供 RetrieverFactory 依 type 分发构造，需求 12.5）---
+retriever:
+  type: local_store          # local_store / external_rag
+  top_k: 5
+  endpoint: null             # external_rag 后端填写
+  collection: null           # external_rag 后端填写
+
+# --- 调优闭环预算与模式参数 ---
+frame_budget_us: 16667       # 目标帧率对应的单帧预算（微秒），60fps ≈ 16667us（需求 5.1）
+hotspot_top_n: 20            # 热点裁剪上限（上下文预算机制）
+report_token_budget: 4000    # FrameReport 序列化 token 上限，超限触发二次聚合
+mode: full_auto              # full_auto / half_auto（需求 11.1）
+max_iterations: 5            # Max_Iteration_Limit，防止失控（需求 11.1 / 11.5）
+intervention_points:         # half_auto 下的人在环干预点；full_auto 可留空
+  - collect
+  - optimize
