@@ -20,7 +20,7 @@
     - 确保所有模型可独立构造、JSON 可序列化（支撑 API 边界与断言）
     - _Requirements: 3.1, 4.1, 5.1, 9.1, 15.3, 15.4_
 
-  - [ ]* 1.3 编写数据契约单元测试
+  - [x]* 1.3 编写数据契约单元测试
     - 测试各模型的构造、校验与 JSON round-trip 序列化
     - **Property 9: 工件语言中立**（FrameReport/SlowFrame/HotspotEntry 无损 JSON 序列化且保留火焰图字段）
     - **Validates: Requirements 15.3, 15.4**
