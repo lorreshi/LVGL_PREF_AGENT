@@ -12,5 +12,8 @@ from embedded_device_agent.capabilities.factory import CapabilityFactory
 
 # 导入具体能力模块以触发注册（放在契约/工厂之后以避免循环导入）。
 from embedded_device_agent.capabilities.perf_tuning import capability as _perf_tuning  # noqa: E402,F401
+from embedded_device_agent.capabilities.functional_test import (  # noqa: E402,F401
+    capability as _functional_test,
+)
 
 __all__ = ["BaseCapability", "CapabilityFactory"]
