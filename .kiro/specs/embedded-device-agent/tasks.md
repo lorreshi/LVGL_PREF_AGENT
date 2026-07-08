@@ -35,7 +35,7 @@
     - 创建 `config/config.example.yaml` 示例
     - _Requirements: 12.1, 12.2, 11.1_
 
-  - [ ]* 2.3 编写 Config_Loader 单元测试
+  - [x]* 2.3 编写 Config_Loader 单元测试
     - 测试合法 YAML 装配、缺失/非法字段的具体报错定位
     - **Property 7: 配置先校验后运行**（校验未通过前不构造/执行任何组件）
     - **Validates: Requirements 12.1, 12.2**
