@@ -4,8 +4,18 @@
 其他外部副作用（Property 8：确定性核心无副作用）。
 """
 
+from embedded_device_agent.capabilities.perf_tuning.tools.systrace_parser import (
+    iter_systrace_events,
+    parse_systrace,
+    serialize_parse_result,
+)
 from embedded_device_agent.capabilities.perf_tuning.tools.trace_filter import (
     trace_filter,
 )
 
-__all__ = ["trace_filter"]
+__all__ = [
+    "trace_filter",
+    "parse_systrace",
+    "iter_systrace_events",
+    "serialize_parse_result",
+]
