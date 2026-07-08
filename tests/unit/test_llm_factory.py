@@ -15,9 +15,15 @@ from __future__ import annotations
 
 import pytest
 from langchain_core.language_models.chat_models import BaseChatModel
+from pydantic import ValidationError
 
 from embedded_device_agent.core.config.models import LLMConfig
 from embedded_device_agent.core.llm import BaseLLMProvider, LLMProviderFactory
+from embedded_device_agent.core.llm.providers import (
+    AnthropicProvider,
+    OpenAICompatibleProvider,
+    OpenAIProvider,
+)
 
 
 @pytest.fixture
@@ -165,3 +171,66 @@ def test_base_provider_is_abstract():
     """BaseLLMProvider 不可直接实例化（抽象方法未实现）。"""
     with pytest.raises(TypeError):
         BaseLLMProvider()  # type: ignore[abstract]
+
+
+# ---------------------------------------------------------------------------
+# 任务 3.3：针对真实注册后端的 type 分发 + 配置缺失字段报错
+# 使用默认（真实）注册表，验证 YAML type 字段确实映射到正确的 provider 子类。
+# create() 只构造实例、不触达真实模型，故无需网络 / 密钥。
+# _Requirements: 12.3
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize(
+    ("type_", "expected_cls", "base_url"),
+    [
+        ("anthropic", AnthropicProvider, None),
+        ("openai", OpenAIProvider, None),
+        ("openai_compatible", OpenAICompatibleProvider, "https://gw.internal/v1"),
+    ],
+)
+def test_create_dispatches_to_real_provider_subclass(type_, expected_cls, base_url):
+    """YAML ``type`` 分发到正确的真实 provider 子类（anthropic/openai/openai_compatible）。"""
+    cfg = LLMConfig(
+        type=type_,
+        model="dummy-model",
+        api_key_env="DUMMY_KEY",
+        base_url=base_url,
+    )
+
+    provider = LLMProviderFactory.create(cfg)
+
+    assert type(provider) is expected_cls
+    assert isinstance(provider, BaseLLMProvider)
+    assert provider.name == type_
+
+
+def test_real_providers_all_registered():
+    """三个内置后端均已随 providers 子包导入注册到工厂。"""
+    for key in ("anthropic", "openai", "openai_compatible"):
+        assert key in LLMProviderFactory._registry
+
+
+def test_create_unknown_type_on_real_registry_lists_available():
+    """真实注册表上未知 ``type`` 报清晰错误，并列出已注册后端。"""
+    cfg = LLMConfig(type="nope", model="m", api_key_env="DUMMY_KEY")
+
+    with pytest.raises(ValueError) as exc:
+        LLMProviderFactory.create(cfg)
+
+    msg = str(exc.value)
+    assert "nope" in msg
+    assert "anthropic" in msg
+    assert "openai" in msg
+
+
+@pytest.mark.parametrize("missing_field", ["type", "model", "api_key_env"])
+def test_llm_config_missing_required_field_raises(missing_field):
+    """缺失 ``LLMConfig`` 必填字段时，Pydantic 在构造阶段即报错（需求 12.2 精神）。"""
+    fields = {"type": "openai", "model": "gpt", "api_key_env": "DUMMY_KEY"}
+    fields.pop(missing_field)
+
+    with pytest.raises(ValidationError) as exc:
+        LLMConfig(**fields)
+
+    assert missing_field in str(exc.value)
