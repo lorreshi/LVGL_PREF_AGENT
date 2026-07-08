@@ -74,7 +74,7 @@
     - _Requirements: 2.3, 2.4, 14.2, 14.4_
 
 - [ ] 5. 实现 Memory / Retriever 底座（Base + Factory + 后端）
-  - [ ] 5.1 实现 BaseRetriever 与工厂
+  - [x] 5.1 实现 BaseRetriever 与工厂
     - 在 `core/memory/base.py` 定义 `BaseRetriever`（`recall(symptom, k)`、`persist(record)`）
     - 在 `core/memory/factory.py` 实现基于 `type` 的注册与构造
     - _Requirements: 9.4, 12.5_
