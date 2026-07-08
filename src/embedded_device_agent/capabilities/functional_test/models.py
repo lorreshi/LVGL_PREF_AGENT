@@ -47,6 +47,8 @@ class Assertion(BaseModel):
 class TestStep(BaseModel):
     """一个可脚本化的测试步骤：经共享 DeviceIO 驱动设备执行一个动作。"""
 
+    __test__ = False  # 避免 pytest 误采集为测试类
+
     name: str
     action: ActionKind
     # 动作载荷：send_cmd 用 ``command``；inject_input 用 ``input_kind`` / ``input_params``；
@@ -61,6 +63,8 @@ class TestStep(BaseModel):
 
 class TestCase(BaseModel):
     """一个功能测试用例：一组有序步骤。"""
+
+    __test__ = False  # 避免 pytest 误采集为测试类
 
     name: str
     description: str = ""
@@ -91,6 +95,8 @@ class StepResult(BaseModel):
 
 class TestReport(BaseModel):
     """一次功能测试运行的整例报告（语言中立、可 JSON 序列化，需求 19.3）。"""
+
+    __test__ = False  # 避免 pytest 误采集为测试类
 
     case_name: str
     passed: bool
