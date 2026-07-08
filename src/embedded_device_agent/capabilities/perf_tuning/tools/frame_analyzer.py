@@ -44,7 +44,7 @@ from embedded_device_agent.core.models import (
     SlowFrame,
 )
 
-__all__ = ["analyze_frames"]
+__all__ = ["analyze_frames", "derive_frames"]
 
 
 def _iter_nodes(node: CallTreeNode):
@@ -52,6 +52,20 @@ def _iter_nodes(node: CallTreeNode):
     yield node
     for child in node.children:
         yield from _iter_nodes(child)
+
+
+def derive_frames(tree: ParseResult) -> list[CallTreeNode]:
+    """把按线程调用树归一为确定的帧序列（跨工具共享的单一真源）。
+
+    每个线程内的**根调用节点**视作一帧；跨线程收集全部根节点后按
+    （begin_us, tid, func）稳定排序，得到确定的帧序——其下标即
+    ``SlowFrame.index``，亦是 ``query_trace`` 的 ``frame_index`` 坐标基准。
+    """
+    frames: list[CallTreeNode] = [
+        root for roots in tree.trees_by_tid.values() for root in roots
+    ]
+    frames.sort(key=lambda n: (n.begin_us, n.tid, n.func))
+    return frames
 
 
 def _self_us(node: CallTreeNode) -> int:
@@ -154,10 +168,7 @@ def analyze_frames(
         source = ArtifactRef(run_id="", kind="call_tree", path=".", size_bytes=0)
 
     # 每个线程的根节点即一帧；跨线程收集后按（起始, tid, 函数）稳定排序 → 确定帧序。
-    frames: list[CallTreeNode] = [
-        root for roots in tree.trees_by_tid.values() for root in roots
-    ]
-    frames.sort(key=lambda n: (n.begin_us, n.tid, n.func))
+    frames = derive_frames(tree)
 
     total_frames = len(frames)
     p95_frame_us = _p95_us([f.duration_us for f in frames])

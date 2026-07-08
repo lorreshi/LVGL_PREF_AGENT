@@ -6,6 +6,7 @@
 
 from embedded_device_agent.capabilities.perf_tuning.tools.frame_analyzer import (
     analyze_frames,
+    derive_frames,
 )
 from embedded_device_agent.capabilities.perf_tuning.tools.systrace_parser import (
     iter_systrace_events,
@@ -15,6 +16,9 @@ from embedded_device_agent.capabilities.perf_tuning.tools.systrace_parser import
 from embedded_device_agent.capabilities.perf_tuning.tools.trace_filter import (
     trace_filter,
 )
+from embedded_device_agent.capabilities.perf_tuning.tools.trace_query import (
+    query_trace,
+)
 
 __all__ = [
     "trace_filter",
@@ -22,4 +26,6 @@ __all__ = [
     "iter_systrace_events",
     "serialize_parse_result",
     "analyze_frames",
+    "derive_frames",
+    "query_trace",
 ]
