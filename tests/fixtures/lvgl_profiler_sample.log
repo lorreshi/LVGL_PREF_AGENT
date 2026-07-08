@@ -1,0 +1,24 @@
+# tracer: nop
+#
+LVGL-1 [0] 100.000000: tracing_mark_write: B|1|lv_timer_handler
+LVGL-1 [0] 100.001000: tracing_mark_write: B|1|lv_draw_rect
+LVGL-1 [0] 100.006000: tracing_mark_write: E|1|lv_draw_rect
+LVGL-1 [0] 100.008000: tracing_mark_write: E|1|lv_timer_handler
+LVGL-1 [0] 100.020000: tracing_mark_write: B|1|lv_timer_handler
+LVGL-1 [0] 100.021000: tracing_mark_write: B|1|lv_draw_rect
+LVGL-1 [0] 100.041000: tracing_mark_write: E|1|lv_draw_rect
+LVGL-1 [0] 100.041000: tracing_mark_write: B|1|lv_refr_area
+LVGL-1 [0] 100.046000: tracing_mark_write: E|1|lv_refr_area
+LVGL-1 [0] 100.050000: tracing_mark_write: E|1|lv_timer_handler
+??? corrupted serial bytes @#$% interleaved from another thread
+LVGL-1 [0] 100.060000: tracing_mark_write: B|1|lv_timer_handler
+LVGL-1 [0] 100.061000: tracing_mark_write: B|1|lv_draw_rect
+LVGL-1 [0] 100.069000: tracing_mark_write: E|1|lv_draw_rect
+LVGL-1 [0] 100.072000: tracing_mark_write: E|1|lv_timer_handler
+garbage line without valid systrace structure
+LVGL-1 [0] 100.100000: tracing_mark_write: B|1|lv_timer_handler
+LVGL-1 [0] 100.101000: tracing_mark_write: B|1|lv_draw_rect
+LVGL-1 [0] 100.119000: tracing_mark_write: E|1|lv_draw_rect
+LVGL-1 [0] 100.119000: tracing_mark_write: B|1|lv_refr_area
+LVGL-1 [0] 100.123000: tracing_mark_write: E|1|lv_refr_area
+LVGL-1 [0] 100.125000: tracing_mark_write: E|1|lv_timer_handler
