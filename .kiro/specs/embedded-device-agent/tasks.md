@@ -69,7 +69,7 @@
 
     - 在 `core/device/backends/serial.py` 用 pyserial 实现全自动后端；`open_serial` 前校验 `baud <= max_safe_baud`；打不开返回带端口与原因的描述性错误；`send_cmd` 发命令并返回响应
     - _Requirements: 2.1, 2.3, 2.4, 14.4_
-  - [ ]  4.3 实现 HalfAutoDeviceIO 后端
+  - [x]  4.3 实现 HalfAutoDeviceIO 后端
 
     - 在 `core/device/backends/half_auto.py` 实现部分脚本化后端，其余操作产出人在环干预点
     - _Requirements: 14.2, 7.3, 11.3_
