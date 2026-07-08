@@ -4,6 +4,9 @@
 其他外部副作用（Property 8：确定性核心无副作用）。
 """
 
+from embedded_device_agent.capabilities.perf_tuning.tools.frame_analyzer import (
+    analyze_frames,
+)
 from embedded_device_agent.capabilities.perf_tuning.tools.systrace_parser import (
     iter_systrace_events,
     parse_systrace,
@@ -18,4 +21,5 @@ __all__ = [
     "parse_systrace",
     "iter_systrace_events",
     "serialize_parse_result",
+    "analyze_frames",
 ]
