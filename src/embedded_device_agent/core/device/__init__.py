@@ -14,6 +14,10 @@ from embedded_device_agent.core.device.models import (
     InterventionRequest,
 )
 
+# 导入具体后端子包以触发 ``@DeviceIOFactory.register(...)`` 注册（任务 4.2 起）。
+# 放在契约/工厂导入之后以避免循环导入。
+from embedded_device_agent.core.device import backends as backends  # noqa: E402,F401
+
 __all__ = [
     "DeviceIO",
     "HumanInLoopMixin",
