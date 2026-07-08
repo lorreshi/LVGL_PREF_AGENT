@@ -14,3 +14,6 @@ __pycache__/
 .pytest_cache/
 .mypy_cache/
 .hypothesis/
+
+# ---- setuptools 可编辑安装产物 ----
+*.egg-info/
