@@ -56,7 +56,7 @@
     - _Requirements: 12.3_
 
 - [ ] 4. 实现 DeviceIO 底座（Base + Factory + 后端）
-  - [ ] 4.1 实现 DeviceIO 基类与 HumanInLoopMixin
+  - [x] 4.1 实现 DeviceIO 基类与 HumanInLoopMixin
     - 在 `core/device/base.py` 定义 `DeviceIO`（`open_serial`、`capture`、`build`、`flash`、`inject_input`、`send_cmd`）与 `HumanInLoopMixin`（不可脚本化时返回 `InterventionRequest` 而非抛错）
     - 在 `core/device/factory.py` 实现基于 `type` 的注册与构造
     - _Requirements: 14.1, 14.2, 14.3, 12.4_
