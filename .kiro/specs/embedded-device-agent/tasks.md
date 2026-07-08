@@ -26,7 +26,7 @@
     - **Validates: Requirements 15.3, 15.4**
 
 - [ ] 2. 实现配置层（Config_Loader + Pydantic 模型 + 工厂契约）
-  - [ ] 2.1 实现配置 Pydantic 模型
+  - [x] 2.1 实现配置 Pydantic 模型
     - 在 `core/config/models.py` 实现 `LLMConfig`、`DeviceConfig`、`RetrieverConfig`、`AppConfig`（含 `frame_budget_us`、`hotspot_top_n`、`report_token_budget`、`mode`、`max_iterations`、`intervention_points`、`max_safe_baud`）
     - _Requirements: 11.1, 12.1_
 
