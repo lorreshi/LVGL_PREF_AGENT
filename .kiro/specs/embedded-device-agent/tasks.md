@@ -41,7 +41,7 @@
     - **Validates: Requirements 12.1, 12.2**
 
 - [ ] 3. 实现 LLM_Provider 底座（Base + Factory）
-  - [ ] 3.1 实现 BaseLLMProvider 与 LLMProviderFactory
+  - [x] 3.1 实现 BaseLLMProvider 与 LLMProviderFactory
     - 在 `core/llm/base.py` 定义 `BaseLLMProvider`（`get_chat_model`、`name`）
     - 在 `core/llm/factory.py` 实现基于 `type` 字段的装饰器注册与构造
     - _Requirements: 12.3_
