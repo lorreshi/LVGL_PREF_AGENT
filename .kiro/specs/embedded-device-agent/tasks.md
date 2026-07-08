@@ -15,7 +15,7 @@
     - 配置 pytest 与 mypy 基础设置
     - _Requirements: 12.1_
 
-  - [ ] 1.2 定义共享 Pydantic 数据契约
+  - [x] 1.2 定义共享 Pydantic 数据契约
     - 在 `core/models.py` 实现 `ArtifactRef`、`RawTraceArtifact`、`SystraceEvent`、`FilterResult`、`CallTreeNode`、`ParseResult`、`HotspotEntry`、`SlowFrame`、`FrameReport`、`TraceQuery`、`TraceSlice`、`KnowledgeRecord`
     - 确保所有模型可独立构造、JSON 可序列化（支撑 API 边界与断言）
     - _Requirements: 3.1, 4.1, 5.1, 9.1, 15.3, 15.4_
