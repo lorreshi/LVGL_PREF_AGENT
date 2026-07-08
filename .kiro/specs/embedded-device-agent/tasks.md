@@ -46,7 +46,7 @@
     - 在 `core/llm/factory.py` 实现基于 `type` 字段的装饰器注册与构造
     - _Requirements: 12.3_
 
-  - [ ] 3.2 实现具体 LLM Provider 后端
+  - [x] 3.2 实现具体 LLM Provider 后端
     - 在 `core/llm/providers/` 实现 `AnthropicProvider`、`OpenAIProvider`、`OpenAICompatibleProvider`（读 `api_key_env`、`base_url`）
     - 注册到工厂
     - _Requirements: 12.3_

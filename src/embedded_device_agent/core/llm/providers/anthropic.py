@@ -1,0 +1,44 @@
+"""AnthropicProvider —— 基于 langchain-anthropic 的 ``ChatAnthropic`` 后端。
+
+对照 design.md "LLM_Provider" 章节与需求 12.3：以 ``type: anthropic`` 经工厂构造。
+读取 ``LLMConfig`` 的 ``model`` / ``temperature`` / ``base_url``，并从
+``api_key_env`` 命名的环境变量取密钥。
+"""
+
+from __future__ import annotations
+
+from typing import Any
+
+from langchain_anthropic import ChatAnthropic
+from langchain_core.language_models.chat_models import BaseChatModel
+
+from embedded_device_agent.core.config.models import LLMConfig
+from embedded_device_agent.core.llm.base import BaseLLMProvider
+from embedded_device_agent.core.llm.factory import LLMProviderFactory
+from embedded_device_agent.core.llm.providers._common import require_api_key
+
+__all__ = ["AnthropicProvider"]
+
+
+@LLMProviderFactory.register("anthropic")
+class AnthropicProvider(BaseLLMProvider):
+    """封装 ``ChatAnthropic`` 的 LLM_Provider。"""
+
+    def __init__(self, cfg: LLMConfig) -> None:
+        self._cfg = cfg
+
+    @property
+    def name(self) -> str:
+        return "anthropic"
+
+    def get_chat_model(self) -> BaseChatModel:
+        """构造并返回 ``ChatAnthropic``；密钥在此时才从环境变量读取。"""
+        api_key = require_api_key(self._cfg.api_key_env)
+        kwargs: dict[str, Any] = {
+            "model": self._cfg.model,
+            "api_key": api_key,
+            "temperature": self._cfg.temperature,
+        }
+        if self._cfg.base_url:
+            kwargs["base_url"] = self._cfg.base_url
+        return ChatAnthropic(**kwargs)

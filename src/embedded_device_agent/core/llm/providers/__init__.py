@@ -1,5 +1,17 @@
 """具体 LLM Provider 后端子包。
 
-AnthropicProvider / OpenAIProvider / OpenAICompatibleProvider 由任务 3.2 实现并
-经 ``@LLMProviderFactory.register(...)`` 注册。导入本子包应触发各后端注册。
+导入本子包即触发三个后端经 ``@LLMProviderFactory.register(...)`` 注册：
+``anthropic`` / ``openai`` / ``openai_compatible``（任务 3.2，需求 12.3）。
 """
+
+from embedded_device_agent.core.llm.providers.anthropic import AnthropicProvider
+from embedded_device_agent.core.llm.providers.openai import OpenAIProvider
+from embedded_device_agent.core.llm.providers.openai_compatible import (
+    OpenAICompatibleProvider,
+)
+
+__all__ = [
+    "AnthropicProvider",
+    "OpenAIProvider",
+    "OpenAICompatibleProvider",
+]
