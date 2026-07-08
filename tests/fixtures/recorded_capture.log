@@ -1,0 +1,19 @@
+# tracer: nop
+#
+# 录制的采集日志 fixture（供 FakeDeviceIO.capture 回放，见任务 16.1 / 需求 20.1）。
+# 内容为一段确定性的 LVGL profiler systrace，含数帧 lv_timer_handler，
+# 使能力可脱离真实串口硬件、离线可重复地驱动完整 subgraph。
+LVGL-1 [0] 200.000000: tracing_mark_write: B|1|lv_timer_handler
+LVGL-1 [0] 200.001000: tracing_mark_write: B|1|lv_draw_rect
+LVGL-1 [0] 200.007000: tracing_mark_write: E|1|lv_draw_rect
+LVGL-1 [0] 200.009000: tracing_mark_write: E|1|lv_timer_handler
+LVGL-1 [0] 200.020000: tracing_mark_write: B|1|lv_timer_handler
+LVGL-1 [0] 200.021000: tracing_mark_write: B|1|lv_draw_rect
+LVGL-1 [0] 200.049000: tracing_mark_write: E|1|lv_draw_rect
+LVGL-1 [0] 200.049000: tracing_mark_write: B|1|lv_refr_area
+LVGL-1 [0] 200.055000: tracing_mark_write: E|1|lv_refr_area
+LVGL-1 [0] 200.058000: tracing_mark_write: E|1|lv_timer_handler
+LVGL-1 [0] 200.070000: tracing_mark_write: B|1|lv_timer_handler
+LVGL-1 [0] 200.071000: tracing_mark_write: B|1|lv_draw_rect
+LVGL-1 [0] 200.079000: tracing_mark_write: E|1|lv_draw_rect
+LVGL-1 [0] 200.082000: tracing_mark_write: E|1|lv_timer_handler
